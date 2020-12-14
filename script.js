@@ -1,29 +1,17 @@
 "use strict";
 
-/* Задание на урок:
+let numberOfFilms;
 
-1) Создать переменную numberOfFilms и в неё поместить ответ от пользователя на вопрос:
-'Сколько фильмов вы уже посмотрели?'
-
-2) Создать объект personalMovieDB и в него поместить такие свойства:
-    - count - сюда передается ответ на первый вопрос
-    - movies - в это свойство поместить пустой объект
-    - actors - тоже поместить пустой объект
-    - genres - сюда поместить пустой массив
-    - privat - в это свойство поместить boolean(логическое) значение false
-
-3) Задайте пользователю по два раза вопросы:
-    - 'Один из последних просмотренных фильмов?'
-    - 'На сколько оцените его?'
-Ответы стоит поместить в отдельные переменные
-Записать ответы в объект movies в формате: 
-    movies: {
-        'logan': '8.1'
+for (let i = 1; i >= 1; i++) {
+    numberOfFilms = +prompt('Сколько фильмов вы уже посмотрели?', '');
+    if (!numberOfFilms) {
+        alert('Попробуйте еще раз');
+        continue;
+    } else {
+        break;
     }
+}
 
-Проверить, чтобы все работало без ошибок в консоли */
-
-let numberOfFilms = prompt('Сколько фильмов вы уже посмотрели?', '1');
 let personalMovieDB = {
     count: numberOfFilms,
     movies: {},
@@ -32,9 +20,31 @@ let personalMovieDB = {
     privat: false,
 }
 
-for (let i = 0; i < 2; i++) {
+for (let i = 0; i < 2;) {
     let lastMovie = prompt('Один из последних просмотренных фильмов ?', '');
-    let movieRating = prompt('На сколько оцените его по дисятибальной шкале ?', '');
-
-    personalMovieDB.movies[lastMovie] = movieRating;
+    let movieRating = +prompt('На сколько оцените его по дисятибальной шкале ?', '');
+    
+    if (lastMovie == 0 || !movieRating) {
+        alert('Попробуйте еще раз');
+        continue;
+    } else if (lastMovie.length > 50) {
+        alert('Название фильма не должно быть больше 50-ти символов')
+        continue;
+    } else {
+        personalMovieDB.movies[lastMovie] = movieRating;
+        i++;
+        continue;
+    }  
 }
+
+if (personalMovieDB.count > 0 && personalMovieDB.count < 10) {
+    alert('Просмотрено довольно мало фильмов');
+} else if (personalMovieDB.count >=10 && personalMovieDB.count <= 30) {
+    alert('Вы классический зритель');
+} else if (personalMovieDB.count > 30) {
+    alert('ВЫ киноман !');
+} else {
+    alert('Произошла ошибка !');
+}
+
+console.log(personalMovieDB)
