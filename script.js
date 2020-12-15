@@ -60,8 +60,8 @@ function writeYourGenres () {
     let num = 1;
 
     for (let i = 0; i < 3; i++) {
-        let genres = prompt(`Ваш любимый жанр по номером ${num++}`, '');
-        personalMovieDB.genres[i] = genres;
+        personalMovieDB.genres[i] = prompt(`Ваш любимый жанр по номером ${num++}`, '');
+       
     }
 }
 
