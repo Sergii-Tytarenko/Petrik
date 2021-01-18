@@ -50,11 +50,17 @@ let personalMovieDB = {
         }      
     },
 
-    showMyDB: function () {
-        let a = personalMovieDB.privat;
-        
-        if (!a) {
+    showMyDB: function (hidden) {
+        if (!hidden) {
             console.log(personalMovieDB);
+        }
+    },
+
+    toggleVisibleMyDB: function () {
+        if (this.privat) {
+            this.privat = false;
+        } else {
+            this.privat = true;
         }
     },
 
@@ -77,14 +83,6 @@ let personalMovieDB = {
             console.log(`Любимый жанр #${++i} - это ${el}`);
         })
     },
-
-    toggleVisibleMyDB: function () {
-        if (this.privat === false) {
-            this.privat = true;
-        } else {
-            this.privat = false;
-        }
-    }
 }
 
 // personalMovieDB.start();
@@ -92,7 +90,7 @@ let personalMovieDB = {
 // personalMovieDB.personalLevel();
 // personalMovieDB.writeYourGenres();
 // personalMovieDB.toggleVisibleMyDB();
-// personalMovieDB.showMyDB();
+// personalMovieDB.showMyDB(personalMovieDB.privat);
 
 
 
