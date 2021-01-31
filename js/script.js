@@ -18,7 +18,7 @@ const movieDB = {
     movies: [
         "Грешник",
         "Лига справедливости",
-        "Ла-ла лэнд",
+        "ла-ла лэнд",
         "Одержимость",
         "Скотт Пилигрим против...",
     ]
@@ -50,6 +50,9 @@ const filmsItem = document.querySelectorAll('.promo__interactive-item');
 
 
 let films = movieDB.movies.slice();
+for(let i = 0; i < films.length; i++) {
+    films[i] = films[i].toLowerCase();
+}
 const  filmsList = films.sort();
 
 for (let i = 0; i < filmsList.length; i++) {
