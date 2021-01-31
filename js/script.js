@@ -18,53 +18,39 @@ const movieDB = {
     movies: [
         "Грешник",
         "Лига справедливости",
-        "ла-ла лэнд",
+        "Ла-ла лэнд",
         "Одержимость",
         "Скотт Пилигрим против...",
     ]
 };
 
+const promoBlock = document.querySelectorAll('.promo__adv img'),
+      promoImage = document.querySelector('.promo__bg'),
+      genre = promoImage.querySelector('.promo__genre'),
+      filmsContaienr = document.querySelector('.promo__interactive-list'),
+      filmsItem = filmsContaienr.querySelectorAll('.promo__interactive-item');
 
-/* Remove Blcok
----------------------------------------------------------------*/
-const promoBlock = document.querySelector('.promo__adv');
-promoBlock.remove();
 
-
-/* Change genre
----------------------------------------------------------------*/
-const genre = document.querySelector('.promo__genre');
+promoBlock.forEach(el => {
+    el.remove();
+})
 genre.textContent = 'Драма';
-
-
-/* Image
----------------------------------------------------------------*/
-const promoImage = document.querySelector('.promo__bg');
-promoImage.style.backgroundImage = "url('../img/bg.jpg')";
+promoImage.style.backgroundImage = "url('img/bg.jpg')";
 
 
 /* Films
 ---------------------------------------------------------------*/
-const filmsContaienr = document.querySelector('.promo__interactive-list');
-const filmsItem = document.querySelectorAll('.promo__interactive-item');
-
-
-let films = movieDB.movies.slice();
-for(let i = 0; i < films.length; i++) {
-    films[i] = films[i].toLowerCase();
-}
-const  filmsList = films.sort();
+let  filmsList = movieDB.movies.sort();
 
 for (let i = 0; i < filmsList.length; i++) {
-    let film = filmsItem[i];
 
-    if (film === undefined) {
+    if (filmsItem[i] == undefined) {
         let newItem = document.createElement('li');
         newItem.classList.add('promo__interactive-item');
         filmsContaienr.append(newItem);
         newItem.textContent = `${i + 1}. ${filmsList[i]}`;
         continue;
     } else {
-        film.textContent = `${i + 1}. ${filmsList[i]}`;
+        filmsItem[i].textContent = `${i + 1}. ${filmsList[i]}`;
     }
 }
