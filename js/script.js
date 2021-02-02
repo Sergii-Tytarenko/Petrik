@@ -41,7 +41,6 @@ promoImage.style.backgroundImage = "url('img/bg.jpg')";
 /* Films
 ---------------------------------------------------------------*/
 let  filmsList = movieDB.movies.sort();
-
 for (let i = 0; i < filmsList.length; i++) {
 
     if (filmsItem[i] == undefined) {
