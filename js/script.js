@@ -60,11 +60,6 @@ btn.addEventListener('click', (e) => {
         movieDB.movies.push(newFilm);
         addNew();
         input.value = '';
-
-        const  star = document.querySelector('input[type="checkbox"]:checked');
-        if (star) {
-            console.log('Добавляем любимый фильм');
-        }
     }
 });
 
@@ -73,14 +68,19 @@ btn.addEventListener('click', (e) => {
 ---------------------------------------------------------------*/
 function addNew () {
     let  filmsList = movieDB.movies.sort(),
-         filmsItem = document.querySelectorAll('.promo__interactive-item');
+         filmsItem = document.querySelectorAll('.promo__interactive-item'),
+         star = document.querySelector('input[type="checkbox"]:checked');
 
     for (let i = 0; i < filmsList.length; i++) {
         if (filmsItem[i] == undefined) {
             let newItem = document.createElement('li');
             newItem.classList.add('promo__interactive-item');
             filmsContaienr.append(newItem);
-            newItem.innerHTML = `${i + 1}. ${filmsList[i]}<div class="delete"></div>`;
+            if (star) {
+                newItem.innerHTML = `<span></span>${i + 1}. ${filmsList[i]}<div class="delete"></div>`;
+            } else {
+                newItem.innerHTML = `${i + 1}. ${filmsList[i]}<div class="delete"></div>`;
+            }
             continue;
         } else {
             filmsItem[i].innerHTML = `${i + 1}. ${filmsList[i]}<div class="delete"></div>`;
