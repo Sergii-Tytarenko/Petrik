@@ -32,69 +32,76 @@ const promoBlock = document.querySelectorAll('.promo__adv img'),
       promoImage = document.querySelector('.promo__bg'),
       genre = promoImage.querySelector('.promo__genre'),
       filmsContaienr = document.querySelector('.promo__interactive-list'),
-      button = document.querySelector('button'),
       btn = document.querySelector('button'),
-      input = document.querySelector('.adding__input');
+      input = document.querySelector('.adding__input'),
+      data = movieDB.movies;
 
 
-promoBlock.forEach(el => {
-    el.remove();
-});
-genre.textContent = 'Драма';
-promoImage.style.backgroundImage = "url('img/bg.jpg')";
+const removeBlocks = (blocks) => {
+    blocks.forEach(el => {
+        el.remove();
+    });
+}
+
+const changeContent = () => {
+    genre.textContent = 'Драма';
+    promoImage.style.backgroundImage = "url('img/bg.jpg')";
+}
 
 
 /* Added film in list
 ---------------------------------------------------------------*/  
-btn.addEventListener('click', (e) => {
-    e.preventDefault();
-
-    let newFilm = input.value,
-        star = document.querySelector('input[type="checkbox"]:checked');
-
-    if (newFilm && newFilm != 0) {
-        if (newFilm.length > 21) {
-            newFilm = newFilm.substr(0, 21) + '...';
+const addNewFilm = (array) => {
+    btn.addEventListener('click', (e) => {
+        e.preventDefault();
+    
+        let newFilm = input.value,
+            star = document.querySelector('input[type="checkbox"]:checked');
+    
+        if (newFilm && newFilm != 0) {
+            if (newFilm.length > 21) {
+                newFilm = newFilm.substr(0, 21) + '...';
+            }
+            if (star) {
+                console.log("Добавляем любимый фильм");
+            }
+            array.push(newFilm);
+            createList(array, filmsContaienr);
+            input.value = '';
         }
-        if (star) {
-            console.log("Добавляем любимый фильм");
-        }
-        movieDB.movies.push(newFilm);
-        addNew();
-        input.value = '';
-    }
-});
-
-
-/* Films function
----------------------------------------------------------------*/
-function addNew () {
-    let movieList = [];
-    for (let key = 0; key < movieDB.movies.length; key++) {
-        movieList[key] = movieDB.movies[key].toLowerCase();
-    }
-    movieList.sort();
-
-    document.querySelectorAll('.promo__interactive-item').forEach(el => {
-        el.remove();
     });
+}
+
+
+/* Create list function
+---------------------------------------------------------------*/
+function createList (array, container) {
+    let movieList = [];
+
+    array.forEach((el, i) => {
+        movieList[i] = el.toLowerCase();
+    });
+    movieList.sort();
+    container.innerHTML = "";
 
     for (let i = 0; i < movieList.length; i++) {
-       filmsContaienr.insertAdjacentHTML("beforeend",
+        container.insertAdjacentHTML("beforeend",
        `<li class="promo__interactive-item">${i + 1}. ${movieList[i]}
             <div class="delete"></div>
         </li>`);
     }
 
     const removeBtns = document.querySelectorAll('.delete');
-    removeBtns.forEach(item => {
+    removeBtns.forEach( (item, i) => {
         item.addEventListener('click', () => {
-            let num = item.parentElement.textContent[0];
-            --num;
-            movieDB.movies.splice(num, 1);
+            array.splice(i, 1);
             item.parentElement.remove();
+            createList(data, filmsContaienr);
         });
     });
 }
-addNew();
 
+removeBlocks(promoBlock);
+changeContent();
+addNewFilm(data)
+createList(data, filmsContaienr);
