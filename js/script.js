@@ -32,7 +32,9 @@ const promoBlock = document.querySelectorAll('.promo__adv img'),
       promoImage = document.querySelector('.promo__bg'),
       genre = promoImage.querySelector('.promo__genre'),
       filmsContaienr = document.querySelector('.promo__interactive-list'),
-      button = document.querySelector('button');
+      button = document.querySelector('button'),
+      btn = document.querySelector('button'),
+      input = document.querySelector('.adding__input');
 
 
 promoBlock.forEach(el => {
@@ -43,19 +45,19 @@ promoImage.style.backgroundImage = "url('img/bg.jpg')";
 
 
 /* Added film in list
----------------------------------------------------------------*/
-const btn = document.querySelector('button'),
-      input = document.querySelector('.adding__input');
-     
-     
+---------------------------------------------------------------*/  
 btn.addEventListener('click', (e) => {
     e.preventDefault();
 
-    let newFilm = input.value;
+    let newFilm = input.value,
+        star = document.querySelector('input[type="checkbox"]:checked');
+
     if (newFilm && newFilm != 0) {
         if (newFilm.length > 21) {
-            newFilm = newFilm.substr(0, 21);
-            newFilm += '...';
+            newFilm = newFilm.substr(0, 21) + '...';
+        }
+        if (star) {
+            console.log("Добавляем любимый фильм");
         }
         movieDB.movies.push(newFilm);
         addNew();
@@ -64,31 +66,27 @@ btn.addEventListener('click', (e) => {
 });
 
 
-/* Films
+/* Films function
 ---------------------------------------------------------------*/
 function addNew () {
-    let  filmsList = movieDB.movies.sort(),
-         filmsItem = document.querySelectorAll('.promo__interactive-item'),
-         star = document.querySelector('input[type="checkbox"]:checked');
+    let movieList = [];
+    for (let key = 0; key < movieDB.movies.length; key++) {
+        movieList[key] = movieDB.movies[key].toLowerCase();
+    }
+    movieList.sort();
 
-    for (let i = 0; i < filmsList.length; i++) {
-        if (filmsItem[i] == undefined) {
-            let newItem = document.createElement('li');
-            newItem.classList.add('promo__interactive-item');
-            filmsContaienr.append(newItem);
-            if (star) {
-                newItem.innerHTML = `<span></span>${i + 1}. ${filmsList[i]}<div class="delete"></div>`;
-            } else {
-                newItem.innerHTML = `${i + 1}. ${filmsList[i]}<div class="delete"></div>`;
-            }
-            continue;
-        } else {
-            filmsItem[i].innerHTML = `${i + 1}. ${filmsList[i]}<div class="delete"></div>`;
-        }
+    document.querySelectorAll('.promo__interactive-item').forEach(el => {
+        el.remove();
+    });
+
+    for (let i = 0; i < movieList.length; i++) {
+       filmsContaienr.insertAdjacentHTML("beforeend",
+       `<li class="promo__interactive-item">${i + 1}. ${movieList[i]}
+            <div class="delete"></div>
+        </li>`);
     }
 
     const removeBtns = document.querySelectorAll('.delete');
-
     removeBtns.forEach(item => {
         item.addEventListener('click', () => {
             let num = item.parentElement.textContent[0];
@@ -98,7 +96,5 @@ function addNew () {
         });
     });
 }
-
 addNew();
-
 
