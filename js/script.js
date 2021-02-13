@@ -76,17 +76,12 @@ const addNewFilm = (array) => {
 /* Create list function
 ---------------------------------------------------------------*/
 function createList (array, container) {
-    let movieList = [];
-
-    array.forEach((el, i) => {
-        movieList[i] = el.toLowerCase();
-    });
-    movieList.sort();
+    sortArray (array);
     container.innerHTML = "";
 
-    for (let i = 0; i < movieList.length; i++) {
+    for (let i = 0; i < array.length; i++) {
         container.insertAdjacentHTML("beforeend",
-       `<li class="promo__interactive-item">${i + 1}. ${movieList[i]}
+       `<li class="promo__interactive-item">${i + 1}. ${array[i]}
             <div class="delete"></div>
         </li>`);
     }
@@ -99,6 +94,13 @@ function createList (array, container) {
             createList(data, filmsContaienr);
         });
     });
+}
+
+function sortArray (array) {
+    array.forEach((el, i) => {
+        array[i] = el.toLowerCase();
+    });
+    array.sort();
 }
 
 removeBlocks(promoBlock);
