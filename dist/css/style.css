@@ -36,6 +36,9 @@ a {
 .container {
   max-width: 1200px;
   margin: 0 auto; }
+  @media (min-width: 1200px) {
+    .container {
+      max-width: 1000px; } }
 
 .divider {
   width: 330px;
@@ -86,7 +89,7 @@ a {
 .sidepanel {
   position: fixed;
   left: 60px;
-  top: 240px;
+  top: 220px;
   height: 400px;
   width: 25px;
   display: flex;
@@ -177,6 +180,22 @@ a {
       color: #000;
       font-size: 22px;
       font-weight: 700; }
+
+.hide {
+  display: none; }
+
+.show {
+  display: block; }
+
+.fade {
+  animation-name: fade;
+  animation-duration: .5s; }
+
+@keyframes fade {
+  0% {
+    opacity: 0; }
+  100% {
+    opacity: 1; } }
 
 .offer {
   padding: 70px 0 100px 0;
