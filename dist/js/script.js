@@ -116,6 +116,7 @@ document.addEventListener('DOMContentLoaded', () => {
     hideTabContent();
     tabItems[i].classList.add('tabheader__item_active');
     tabContent[i].classList.add('show', 'fade');
+    tabContent[i].classList.remove('hide');
   }
 
   tabItemsContainer.addEventListener('click', event => {
