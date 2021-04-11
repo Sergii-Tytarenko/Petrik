@@ -131,6 +131,55 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   });
   showTabContent();
+  /* Timer
+  ---------------------------------------------------------------*/
+
+  const deadline = '2021-04-12';
+  let timer = document.querySelector('.timer');
+  timerInit(deadline, timer);
+
+  function timerInit(timeToEnd, timer) {
+    let days = timer.querySelector('#days'),
+        hours = timer.querySelector('#hours'),
+        minutes = timer.querySelector('#minutes'),
+        seconds = timer.querySelector('#seconds'),
+        timeInterval = setInterval(setTimer, 1000);
+    setTimer();
+
+    function setTimer() {
+      let currentDate = calcDate(timeToEnd);
+
+      if (currentDate.total < 0) {
+        clearInterval(timeInterval);
+      } else {
+        days.innerHTML = shiftZero(currentDate.days);
+        hours.innerHTML = shiftZero(currentDate.hours);
+        minutes.innerHTML = shiftZero(currentDate.minutes);
+        seconds.innerHTML = shiftZero(currentDate.seconds);
+      }
+    }
+  }
+
+  function calcDate(time) {
+    let t = new Date(time) - new Date();
+    return {
+      'total': t,
+      'days': Math.floor(t / 1000 / 60 / 60 / 24),
+      'hours': Math.floor(t / 1000 / 60 / 60 % 24),
+      'minutes': Math.floor(t / 1000 / 60 % 60),
+      'seconds': Math.floor(t / 1000 % 60)
+    };
+  }
+
+  function shiftZero(num) {
+    if (num >= 0 && num < 10) {
+      return `0${num}`;
+    } else {
+      return num;
+    }
+  }
+
+  console.log(new Date(deadline));
 });
 
 /***/ })
