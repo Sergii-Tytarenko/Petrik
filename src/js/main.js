@@ -43,7 +43,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     /* Timer
     ---------------------------------------------------------------*/
-    const deadline = '2021-04-12';
+    const deadline = '2021-08-09T00:00';
     let timer = document.querySelector('.timer');
 
     timerInit(deadline, timer);
@@ -72,8 +72,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     function calcDate (time) {
-        let t = new Date(time) - new Date();
-        
+        let t = Date.parse(time) - new Date();
         return {
             'total': t,
             'days': Math.floor( t / 1000 / 60 / 60 / 24),
@@ -90,6 +89,4 @@ document.addEventListener('DOMContentLoaded', () => {
             return num;
         }
     }
-
-    console.log(new Date(deadline));
 });
